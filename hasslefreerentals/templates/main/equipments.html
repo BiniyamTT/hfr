@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block title %}
+Equipments
+{% endblock %}
+
+{% block main %}
+
+    <h2 class="my-1 text-center">Equipment Rentals: Browse Heavy Duty Equipment and Tools</h2>
+   
+    <div class="container my-5 ">
+        <div class="row height d-flex justify-content-center align-items-center">
+          <div class="col-md-8">
+            <div class="search d-flex justify-content-center align-items-center">
+              <i class="fa fa-search"></i>
+              <input id="search" class="form-control p-2 w-75" placeholder="Search for Equipments">
+              <!--<button class="btn btn-primary">Search</button>-->
+            </div>          
+          </div>
+          <div class="col-md-8 d-flex justify-content-center align-items-center">
+            <div class="searchresults p-2 w-75">
+                <p id="searchresults"></p>
+              </div>
+          </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        
+        <div class="col-md-3">
+            <h3 class="my-5">Browse by Category</h3>
+            {% for cat in CAT %}
+                <div class="accordion-header" id="flush-heading{{loop.index}}">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{loop.index}}">
+                    {{ cat }}
+                </button>
+                </div> 
+                <div id="flush-collapse{{loop.index}}" class="subcat accordion-collapse collapse">
+                    {% for subcat in CAT[cat] %}
+                    <form onclick='submit()'action="{{ url_for('main.equipments_detail') }}" method="POST">
+                        <input type="text" name="subcategory" readonly class=" accordion-body form-control-plaintext" id="cat" value="{{subcat}}">
+                   </form>
+                    {% endfor %}
+                </div>
+  
+            {% endfor %}
+        </div>
+             
+        <div class="col-md-9">
+            <h3 class="my-5 text-center">Popular Equipment and Tools for Rent</h3>
+            <div class="row g-3">
+                <div class="col-lg-4 col-md-6">
+                    <form onclick="submit()" action="" method="post" id="form-element">
+                            <div class="boxy">
+                                <div class="title-container px-4 py-3">
+                                    <input type="text" name="cat" readonly class="form-control-plaintext h6" id="cat" value="Earthwork">
+                                    <input type="text" name="sub_cat" readonly class="form-control-plaintext h5" id="sub-cat" value="Chain Excavator">
+                                </div>
+                                <img src="/static/images/excavator.png" alt="">
+                            </div>
+                    </form>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <form onclick="submit()" action="" method="post" id="form-element">                        
+                        <div class="boxy">
+                            <div class="title-container px-4 py-3">
+                                <input type="text" name="cat" readonly class="form-control-plaintext h6" id="cat" value="Trucks and Trailers">
+                                <input type="text" name="sub_cat" readonly class="form-control-plaintext h5" id="sub-cat" value="Dump Trucks">
+                            </div>
+                            <img src="/static/images/dt.jpg" alt="">
+                        </div>                       
+                    </form>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <form onclick="submit()" action="" method="post" id="form-element">                        
+                        <div class="boxy">
+                            <div class="title-container px-4 py-3">
+                                <input type="text" name="cat" readonly class="form-control-plaintext h6" id="cat" value="Trucks and Trailers">
+                                <input type="text" name="sub_cat" readonly class="form-control-plaintext h5" id="sub-cat" value="Dump Trucks">
+                            </div>
+                            <img src="/static/images/dt.jpg" alt="">
+                        </div>                       
+                    </form>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <form onclick="submit()" action="" method="post" id="form-element">                        
+                        <div class="boxy">
+                            <div class="title-container px-4 py-3">
+                                <input type="text" name="cat" readonly class="form-control-plaintext h6" id="cat" value="Trucks and Trailers">
+                                <input type="text" name="sub_cat" readonly class="form-control-plaintext h5" id="sub-cat" value="Dump Trucks">
+                            </div>
+                            <img src="/static/images/dt.jpg" alt="">
+                        </div>                       
+                    </form>
+                </div>
+            </div>
+            .......   
+        </div>
+    </div>
+{% endblock %}
+
+{% block script%}
+{% endblock%}
