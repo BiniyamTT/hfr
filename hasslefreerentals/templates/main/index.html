@@ -13,11 +13,11 @@ Home
             <p class="lead my-4">
                 Find the right equipment for your job, in no time right from your desk.
             </p>
-            <form action="{{ url_for('index') }}" method="get">
+            <form action="{{ url_for('main.equipments') }}" method="get">
               <button type="submit" class="btn btn-primary">Rent Now</button>
             </form>
         </div>
-        <img class="img-fluid w-50 d-none d-md-block" src="{{ url_for('static', filename='images/hero_img.png')}}" alt="">
+        <img class="img-fluid w-75 d-none d-md-block" src="{{ url_for('static', filename='images/hero_img.png')}}" alt="">
     </div>
   </section>
 
@@ -27,60 +27,31 @@ Home
       <h2 class="bolder">Quality equipments, ready to go</h2>
     </div>
     <div class="showcase-link p-0">
-      <ul class="nav">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Popular Equipments</a>
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="#">Popular Equipments</a>
         </li>
       </ul>
     </div>
     <br>
-    <div class="row pt-3">
-      <div class="col-lg-3 col-md-6">
-        <form onclick="submit()" action="" method="post" id="form-element">
-          <div class="boxy">
-            <div class="title-container px-4 py-3">
-              <input type="text" name="cat" readonly class="form-control-plaintext h6" id="cat" value="Earthwork">
-              <input type="text" name="sub_cat" readonly class="form-control-plaintext h5" id="sub-cat" value="Chain Excavator">
+    <div class="row g-4 pt-3">
+      {% for subcat in popularsubcats %}
+        {% for category, subcategories in CAT.items() %}
+          {% if subcat in subcategories %}
+            <div class="col-lg-3 col-md-6">
+              <form onclick="submit()" action="/equipmentdetail" method="post" id="form-element">
+                <div class="boxy">
+                  <div class="title-container px-4 py-3">
+                    <input type="text" name="cat" readonly class="form-control-plaintext h6" id="cat" value="{{ category }}">
+                    <input type="text" name="sub_cat" readonly class="form-control-plaintext h5" id="sub-cat" value="{{ subcat }}">
+                  </div>
+                  <img src="{{ url_for('main.get_image', image_id=img_dict[subcat]) }}" width="100%" height="100%" alt="">
+                </div>
+              </form>
             </div>
-            <img src="{{ url_for('static', filename='images/excavator.png') }}" alt="Excavator">
-          </div>
-        </form>
-      </div> 
-      <div class="col-lg-3 col-md-6">
-        <form onclick="submit()" action="" method="post" id="form-element">
-          <div class="boxy">
-            <div class="title-container px-4 py-3">
-              <input type="text" name="cat" readonly class="form-control-plaintext h6" id="cat" value="Trucks and Trailers">
-              <input type="text" name="sub_cat" readonly class="form-control-plaintext h5" id="sub-cat" value="Dump Truck">
-            </div>
-            <img src="{{ url_for('static', filename='images/dt.jpg') }}" alt="Dump Truck">
-          </div>
-        </form>
-      </div> 
-      <div class="col-lg-3 col-md-6">
-        <form onclick="submit()" action="" method="post" id="form-element">
-          <div class="boxy">
-            <div class="title-container px-4 py-3">
-              <input type="text" name="cat" readonly class="form-control-plaintext h6" id="cat" value="Concrete and Masonry">
-              <input type="text" name="sub_cat" readonly class="form-control-plaintext h5" id="sub-cat" value="Concrete Pump Truck">
-            </div>
-            <img src="{{ url_for('static', filename='images/cp.jpeg') }}" alt="Concrete Pump">
-          </div>
-        </form>
-      </div> 
-      <div class="col-lg-3 col-md-6">
-        <form onclick="submit()" action="" method="post" id="form-element">
-          <div class="boxy">
-            <div class="title-container px-4 py-3">
-              <input type="text" name="cat" readonly class="form-control-plaintext h6" id="cat" value="Trucks & Trailers">
-              <input type="text" name="sub_cat" readonly class="form-control-plaintext h5" id="sub-cat" value="Low Bed Trucks">
-            </div>
-            <img src="{{ url_for('static', filename='images/lb.jpg') }}" alt="Low Bed Truck">
-          </div>
-        </form>
-      </div> 
-
-    </div>           
+          {% endif %}
+        {% endfor %}
+      {% endfor %}
+    </div>   
   </section>
   <!-- Categories Section -->
   <section>

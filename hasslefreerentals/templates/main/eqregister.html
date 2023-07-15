@@ -3,58 +3,145 @@
 {% block title %}
 Register Equipment
 {% endblock %}
-
 {% block main %}
-<h3 class="text-center"> Register your Equipment</h3>
-<form action="/eqregister" method="post">
-    
-    <div class="row justify-content-center mt-5">
-        <hr>
-        <div class="col-md-4" style="background-color: rgb(255, 255, 255);">
-            <div class="d-grip py-3">    
-                <select autofocus class="form-select mb-3" name="category" id="cat">
-                    <option disabled selected value="">Select Category</option>
-                    {% for cat in CAT %}
-                        <option value = "{{cat}}">{{cat}}</option>
-                    {% endfor %}
-                </select>
-                <select class="form-select mb-3" name="sub_category" id="subcat">
-                    <option disabled selected value="">Select Sub-category</option>
-                </select> 
-                <input autocomplete="on" class="form-control mb-3" id="brand" name="brand" placeholder="Brand" type="text">
-                <input autocomplete="on" class="form-control mb-3" id="model" name="model" placeholder="Model" type="text">
-                <input autocomplete="on" class="form-control mb-3" id="license_plate_no" name="license_plate_no" placeholder="License Plate No" type="text">
-                <select autofocus class="form-select mb-3" name="fuel_type" id="fuel_type">
-                    <option disabled selected value="">Select Fuel Type</option>
-                    <option value="diesel">Diesel</option>
-                    <option value="petrol">Petrol</option>
-                    <option value="electric">Electric</option>
-                </select>
-                <input autocomplete="on" class="form-control mb-3" id="hp" name="hp" placeholder="Engine Power" type="text">
-                <input autocomplete="on" class="form-control mb-3" id="year" name="year" placeholder="Mfg. Year" type="text">
-                <input autocomplete="on" class="form-control mb-3" id="hourly_rate" name="hourly_rate" placeholder="Hourly Rate (ETB)" type="text">
-                <input autocomplete="on" class="form-control mb-3" id="advance" name="advance" placeholder="Advance Amount (hrs)" type="text">
-                <select autofocus class="form-select mb-3" name="duration" id="duration">
-                    <option disabled selected value="">Select Duration</option>
-                    <option value="long term">Long Term</option>
-                    <option value="short term">Short Term</option>
-                </select>
-                <input autocomplete="on" class="form-control mb-3" id="location" name="location" placeholder="Location" type="text">
-                <select autofocus class="form-select mb-3" name="status" id="status">
-                    <option disabled selected value="">Select Status</option>
-                    {% for status in STATUS %}
-                        <option value = "{{status}}">{{status}}</option>
-                    {% endfor %}
-                </select>
-                <div class="text-center">
-                    <button class="btn btn-primary" type="submit">Register</button>
-                </div>            
-                
+<div class="container">
+    <p class="text-center h3 mx-1 mx-md-4" style="color: #0D6EFD">Register your Equipment</p>
+  <hr>
+  <form action="/eqregister" method="post">
+    <div class="row justify-content-center mt-4">
+        
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="cat" class="form-label greyish">Category</label>
+                                    <select autofocus class="form-select eqrform" name="category" id="cat">
+                                        <option disabled selected value="">Select Category</option>
+                                        {% for cat in CAT %}
+                                        <option value="{{cat}}">{{cat}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">    
+                                <div class="mb-3">
+                                    <label for="subcat" class="form-label greyish">Equipment Type</label>
+                                    <select class="form-select eqrform" name="sub_category" id="subcat">
+                                        <option disabled selected value="">Select Equipment Type</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                            <label for="brand" class="form-label greyish">Brand</label>
+                            <input autocomplete="on" class="form-control eqrform" id="brand" name="brand" placeholder="Brand" type="text">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                            <label for="model" class="form-label greyish">Model</label>
+                            <input autocomplete="on" class="form-control eqrform" id="model" name="model" placeholder="Model" type="text">
+                            </div>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                            <label for="license_plate_no" class="form-label greyish">License Plate No</label>
+                            <input autocomplete="on" class="form-control eqrform" id="license_plate_no" name="license_plate_no" placeholder="License Plate No" type="text">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                            <label for="fuel_type" class="form-label greyish">Fuel Type</label>
+                            <select autofocus class="form-select eqrform" name="fuel_type" id="fuel_type">
+                                <option disabled selected value="">Select Fuel Type</option>
+                                {% for fuel_type in FUEL_TYPE %}
+                                <option value="{{fuel_type}}">{{fuel_type}}</option>
+                                {% endfor %}
+                            </select>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                            <label for="hp" class="form-label greyish">Engine Power</label>
+                            <input autocomplete="on" class="form-control eqrform" id="hp" name="hp" placeholder="Engine Power" type="text">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                            <label for="year" class="form-label greyish">Mfg. Year</label>
+                            <input autocomplete="on" class="form-control eqrform" id="year" name="year" placeholder="Mfg. Year" type="text">
+                            </div>
+                        </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="hourly_rate" class="form-label greyish">Hourly Rate (ETB)</label>
+                                    <input autocomplete="on" class="form-control eqrform" id="hourly_rate" name="hourly_rate" placeholder="Hourly Rate (ETB)" type="text">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="advance" class="form-label greyish">Advance Amount (hrs)</label>
+                                    <input autocomplete="on" class="form-control eqrform" id="advance" name="advance" placeholder="Advance Amount (hrs)" type="text">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">    
+                                <div class="mb-3">
+                                    <label for="duration" class="form-label greyish">Duration Preference</label>
+                                    <select autofocus class="form-select eqrform" name="duration" id="duration">
+                                        <option disabled selected value="">Duration Preference</option>
+                                        {% for dur in DUR %}
+                                            <option value="{{dur}}">{{dur}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="location" class="form-label greyish">Location</label>
+                                    <input autocomplete="on" class="form-control eqrform" id="location" name="location" placeholder="Location" type="text">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">    
+                                <div class="mb-3">
+                                    <label for="status" class="form-label greyish">Status</label>
+                                    <select autofocus class="form-select eqrform" name="status" id="status">
+                                        <option disabled selected value="">Select Status</option>
+                                        {% for status in STATUS %}
+                                            <option value="{{status}}">{{status}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text">
+                        <button class="btn btn-primary w-100" type="submit">Register</button>
+                        </div>
+                    </div>        
+                    <div class="col-md-6 d-flex align-items-center">
+                        <img class="img-fluid h-auto" src="{{ url_for('static', filename='images/hero_img.png')}}" alt="">
+                    </div>
+                </div>
             </div>
-        </div>
+        </div>    
+        
     </div>
-
-</form>
+  </form>
+</div>
 {% endblock %}
 
 {% block script %}

@@ -146,3 +146,27 @@ input.danger { color: #cc2f2e; }
     cursor: pointer;
     font: smaller;
 }
+
+.greyish{
+    font-size:0.9rem; 
+    color: rgba(0, 0, 0, 0.8);
+    /*  color: #0d6dfdd3 */
+}
+
+.eqrform{
+    font-size: 0.9rem;
+    color:gray;
+}
+
+.form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: gray;
+    opacity: 1; /* Firefox */
+}
+
+.form-control:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: gray;
+}
+
+.form-control::-ms-input-placeholder { /* Microsoft Edge */
+    color: gray;
+}
