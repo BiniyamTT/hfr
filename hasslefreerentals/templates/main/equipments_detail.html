@@ -7,7 +7,7 @@ Equipment List
 {% block main %}
     <div class="container bg-white my-5 ">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <p class="level1 my-3">Location</p>
                 <div class="d-grid gap-2">
                     <button class="btn btn-primary btn-sm mb-4">Set Location</button>
@@ -25,20 +25,32 @@ Equipment List
                 </div>
                 <p class="level1 my-3">Filters</p>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-9">
                 <h3 class="my-3">{{sub_category}} for Rent</h3>
                 <hr>
-                <div class="row">
+                <div class="row d-flex align-items-center">
                     {% for equipment in equipments%}
                         <div class="col-md-2">
                             <img src="{{ url_for('main.get_image', image_id=equipment.def_img_id) }}" width="100%" height="100%" alt="">
                         </div>
-                        <div class="col-md-6">
-                            <p class="level1">{{sub_category}}, {{equipment.brand}}, {{equipment.model}}</p>
-                            <p class="level2">$ {{equipment.hourly_rate}}/hr | Adv - {{equipment.advance}} | {{equipment.duration}} | {{ equipment.location}} </p>
+                        <div class="col-md-7">
+                            <p class="level1">{{equipment.brand}}&emsp;-&emsp;{{equipment.model}}</p>
+                            <div class="d-flex justify-content-start">
+                                <p class="level2">
+                                    <i class="fa-solid fa-dollar-sign fa-lg"></i>&ensp;{{ equipment.hourly_rate }}/hr&emsp;<i class="fa-solid fa-lock-open fa-lg"></i>&ensp;Advance - {{ equipment.advance }} hours &emsp;
+                                    <i class="fa-regular fa-clock fa-lg"></i>&ensp;{{ equipment.duration }}&emsp;<i class="fa-solid fa-location-dot fa-lg"></i>&ensp;{{ equipment.location }}<br><br>
+                                    <i class="fa-solid fa-gas-pump fa-lg"></i>&ensp;{{equipment.fuel_type}}&emsp;<i class="fa-regular fa-calendar fa-lg"></i>&ensp;Mfg. Year - {{ equipment.year}}&emsp;
+                                    <i class="fa-solid fa-battery-half fa-lg">&ensp;</i>&ensp;Power - {{equipment.hp}}HP&emsp;
+                                    {% if equipment.status == 'Available'%}
+                                    <img src="https://img.shields.io/badge/status-available-2ea44f" alt="status - available">
+                                    {% else %}
+                                    <img src ="https://img.shields.io/badge/status-unavailable-EE2E24" alt="status - unavailable">
+                                    {% endif %}
+                                </p>
+                            </div>
                         </div>
-                        <div class=" col-md-4 align-items-center">
-                            <a class="btn btn-primary btn-sm w-100 mb-4" href="{{ url_for('main.booking') }}">Proceed to Booking</a>
+                        <div class=" col-md-3 align-items-center">
+                            <a class="btn btn-primary btn-sm w-100 mb-4" href="{{ url_for('main.booking') }}">Proceed to Book</a>
                         </div>
                     {% endfor %}
                 </div>

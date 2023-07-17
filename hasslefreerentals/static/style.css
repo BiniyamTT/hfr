@@ -120,7 +120,7 @@ button.accordion-button{
 }
 
 .level2{
-    font-size: smaller;
+    font-size: 0.9rem;
     color: rgba(0, 0, 0, 0.8);
 }
 
@@ -173,15 +173,22 @@ input.danger { color: #cc2f2e; }
     color: gray;
 }
 
-h1,h2,h3,h4{
+h1,h3,h4{
     color:#0d6dfd
 }
 
 th{
     font-weight: 200;
 }
+
 .tiny{
     font-size: x-small;
     color:blue;
     text-decoration: underline;
+}
+
+br {
+    display: block; /* makes it have a width */
+    content: ""; /* clears default height */
+    margin-top: 10px; /* change this to whatever height you want it */
 }
