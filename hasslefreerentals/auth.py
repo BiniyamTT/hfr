@@ -8,6 +8,9 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from hasslefreerentals.db import get_db
 
+# Configure global usertypes
+USER_TYPES = ["Lessor", "Lessee"]
+
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
 apisecret = "1ccdc141f237b2c18dfb44dc7716095c2f1ada70"
@@ -67,7 +70,7 @@ def sendotp():
             "phone": data,
             "message": "Your OTP is {{otp}}"}
         r = requests.post(url = "https://hahu.io/api/send/otp", params = message)
-        return (r.json())
+        return (r.json)
 
 @bp.route('/register', methods = ['GET', 'POST'])
 def register():
@@ -115,7 +118,7 @@ def register():
         
         flash(error)
         
-    return render_template('auth/register.html')
+    return render_template('auth/register.html', usertypes = USER_TYPES)
 
 
 @bp.route('/login', methods = ['GET', 'POST'])
@@ -139,6 +142,7 @@ def login():
             session.clear()
             session['user_id'] = user['id']
             session['user_type'] = user['usertype']
+            g.user_type = user['usertype']
             return redirect(url_for('index'))
         
         flash(error)

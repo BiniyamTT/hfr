@@ -1,15 +1,14 @@
 {% extends "base.html" %}
 
 {% block title %}
-Register Equipment
+Update Equipment
 {% endblock %}
 {% block main %}
 <div class="container">
-  <p class="text-center h3 mx-1 mx-md-4" style="color: #0D6EFD">Register your Equipment</p>
+    <p class="text-center h3 mx-1 mx-md-4" style="color: #0D6EFD">Update your Equipment</p>
   <hr>
-  <form action="/eqregister" method="post">
+  <form action="{{ url_for('main.update', id=equipment['id']) }}" method="POST">
     <div class="row justify-content-center mt-4">
-        
         <div class="card">
             <div class="card-body">
                 <div class="row">
@@ -18,8 +17,8 @@ Register Equipment
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="category" class="form-label greyish">Category</label>
-                                    <select autofocus class="form-select eqrform" name="category" id="category">
-                                        <option disabled selected value="">Select Category</option>
+                                    <select required autofocus class="form-select eqrform" name="category" id="category">
+                                        <option selected value="{{ request.form['category'] or equipment['category']}}">{{ request.form['category'] or equipment['category'] }}</option>
                                         {% for cat in CAT %}
                                         <option value="{{cat}}">{{cat}}</option>
                                         {% endfor %}
@@ -29,8 +28,8 @@ Register Equipment
                             <div class="col-md-6">    
                                 <div class="mb-3">
                                     <label for="sub_category" class="form-label greyish">Equipment Type</label>
-                                    <select class="form-select eqrform" name="sub_category" id="sub_category">
-                                        <option disabled selected value="">Select Equipment Type</option>
+                                    <select  required class="form-select eqrform" name="sub_category" id="sub_category">
+                                        <option selected value="{{ request.form['sub_category'] or equipment['sub_category']}}">{{ request.form['sub_category'] or equipment['sub_category'] }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -39,13 +38,13 @@ Register Equipment
                         <div class="col-md-6">
                             <div class="mb-3">
                             <label for="brand" class="form-label greyish">Brand</label>
-                            <input autocomplete="on" class="form-control eqrform" id="brand" name="brand" placeholder="Brand" type="text">
+                            <input required autocomplete="on" class="form-control eqrform" id="brand" name="brand" placeholder="Brand" type="text" value = "{{ request.form['brand'] or equipment['brand']}}">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                             <label for="model" class="form-label greyish">Model</label>
-                            <input autocomplete="on" class="form-control eqrform" id="model" name="model" placeholder="Model" type="text">
+                            <input required autocomplete="on" class="form-control eqrform" id="model" name="model" placeholder="Model" type="text"  value = "{{ request.form['model'] or equipment['model']}}">
                             </div>
                         </div>
                         </div>
@@ -53,14 +52,14 @@ Register Equipment
                         <div class="col-md-6">
                             <div class="mb-3">
                             <label for="license_plate_no" class="form-label greyish">License Plate No</label>
-                            <input autocomplete="on" class="form-control eqrform" id="license_plate_no" name="license_plate_no" placeholder="License Plate No" type="text">
+                            <input required autocomplete="on" class="form-control eqrform" id="license_plate_no" name="license_plate_no" placeholder="License Plate No" type="text" value = "{{ request.form['license_plate_no'] or equipment['license_plate_no']}}">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                             <label for="fuel_type" class="form-label greyish">Fuel Type</label>
                             <select autofocus class="form-select eqrform" name="fuel_type" id="fuel_type">
-                                <option disabled selected value="">Select Fuel Type</option>
+                                <option selected value="{{ request.form['fuel_type'] or equipment['fuel_type'] }}">{{ request.form['fuel_type'] or equipment['fuel_type'] }}</option>
                                 {% for fuel_type in FUEL_TYPE %}
                                 <option value="{{fuel_type}}">{{fuel_type}}</option>
                                 {% endfor %}
@@ -72,13 +71,13 @@ Register Equipment
                         <div class="col-md-6">
                             <div class="mb-3">
                             <label for="hp" class="form-label greyish">Engine Power</label>
-                            <input autocomplete="on" class="form-control eqrform" id="hp" name="hp" placeholder="Engine Power" type="text">
+                            <input required autocomplete="on" class="form-control eqrform" id="hp" name="hp" placeholder="Engine Power" type="text" value = "{{ request.form['hp'] or equipment['hp']}}">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                             <label for="year" class="form-label greyish">Mfg. Year</label>
-                            <input autocomplete="on" class="form-control eqrform" id="year" name="year" placeholder="Mfg. Year" type="text">
+                            <input required autocomplete="on" class="form-control eqrform" id="year" name="year" placeholder="Mfg. Year" type="text" value = "{{ request.form['year'] or equipment['year']}}">
                             </div>
                         </div>
                         </div>
@@ -86,13 +85,13 @@ Register Equipment
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="hourly_rate" class="form-label greyish">Hourly Rate (ETB)</label>
-                                    <input autocomplete="on" class="form-control eqrform" id="hourly_rate" name="hourly_rate" placeholder="Hourly Rate (ETB)" type="text">
+                                    <input required autocomplete="on" class="form-control eqrform" id="hourly_rate" name="hourly_rate" placeholder="Hourly Rate (ETB)" type="text" value = "{{ request.form['hourly_rate'] or equipment['hourly_rate']}}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="advance" class="form-label greyish">Advance Amount (hrs)</label>
-                                    <input autocomplete="on" class="form-control eqrform" id="advance" name="advance" placeholder="Advance Amount (hrs)" type="text">
+                                    <input required autocomplete="on" class="form-control eqrform" id="advance" name="advance" placeholder="Advance Amount (hrs)" type="text" value = "{{ request.form['advance'] or equipment['advance']}}">
                                 </div>
                             </div>
                         </div>
@@ -101,7 +100,7 @@ Register Equipment
                                 <div class="mb-3">
                                     <label for="duration" class="form-label greyish">Duration Preference</label>
                                     <select autofocus class="form-select eqrform" name="duration" id="duration">
-                                        <option disabled selected value="">Duration Preference</option>
+                                        <option selected value="{{ request.form['duration'] or equipment['duration'] }}">{{ request.form['duration'] or equipment['duration'] }}</option>
                                         {% for dur in DUR %}
                                             <option value="{{dur}}">{{dur}}</option>
                                         {% endfor %}
@@ -111,7 +110,7 @@ Register Equipment
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="location" class="form-label greyish">Location</label>
-                                    <input autocomplete="on" class="form-control eqrform" id="location" name="location" placeholder="Location" type="text">
+                                    <input required autocomplete="on" class="form-control eqrform" id="location" name="location" placeholder="Location" type="text" value = "{{ request.form['location'] or equipment['location']}}">
                                 </div>
                             </div>
                         </div>
@@ -120,7 +119,7 @@ Register Equipment
                                 <div class="mb-3">
                                     <label for="status" class="form-label greyish">Status</label>
                                     <select autofocus class="form-select eqrform" name="status" id="status">
-                                        <option disabled selected value="">Select Status</option>
+                                        <option selected value="{{ request.form['status'] or equipment['status'] }}">{{ request.form['status'] or equipment['status'] }}</option>
                                         {% for status in STATUS %}
                                             <option value="{{status}}">{{status}}</option>
                                         {% endfor %}
@@ -128,8 +127,15 @@ Register Equipment
                                 </div>
                             </div>
                         </div>
-                        <div class="text">
-                        <button class="btn btn-primary w-100" type="submit">Register</button>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button class="btn btn-primary w-100" type="submit">Save</button>
+                            </div>
+                            <div class="col-md-6">
+                                <form action="{{ url_for('main.delete', id=equipment['id']) }}" method="post">
+                                    <button class="btn btn-danger w-100" type="button" type="submit" onclick="return confirm('You are about to delete this equipment. This action can not be reversed. Are you sure you want to continue?');">Delete</button>
+                                </form>
+                            </div>
                         </div>
                     </div>        
                     <div class="col-md-6 d-flex align-items-center">

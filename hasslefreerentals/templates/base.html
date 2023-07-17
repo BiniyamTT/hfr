@@ -22,18 +22,20 @@
             <div class="container">
                 <a class="navbar-brand mt-2" href="/">hasslefreerentals</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon">   
+                        <i class="fas fa-bars" style="color:#0d6dfd; font-size:28px;"></i>
+                    </span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">   
                     {% if g.user %}
                         <ul class="navbar-nav me-auto mt-2">
                             <li class="nav-item"><a class="nav-link" href="{{ url_for('main.equipments') }}">Browse Equipment</a></li>
                             <li class="nav-item"><a class="nav-link" href="{{ url_for('main.eqregister') }}">Register Equipment</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/#">Dashboard</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{url_for('main.dashboard') }}">Dashboard</a></li>
                         </ul>
                         <ul class="navbar-nav ms-auto mt-2">
-                            <i class="fa-solid fa-circle-user fa-sm nav-link mt-1" style="color: #002461; padding-right: 5px;"></i>
-                            <li class="nav-item nav-link" style="color: #002461; padding-left: 2px;">{{ g.user['firstname']}}</li>
+                                <i class="nav-item nav-link fa-solid fa-circle-user fa-sm mt-1" style="color: #002461; padding-right: 2px;"></i>
+                                <li class="nav-item nav-link" style="color: #002461; padding-left: 2px;">{{ g.user['firstname']}}</li>
                             <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.logout') }}">Log Out</a></li>
                         </ul>
                     {% else %} 

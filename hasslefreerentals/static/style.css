@@ -31,6 +31,7 @@ nav{
 
 .nav li .active{
     border-bottom: 2px solid #0d6dfd;
+    padding: 0;
     text-decoration: none;
 }
 
@@ -115,11 +116,12 @@ button.accordion-button{
 
 .level1{
     font-size: 1rem;
-    font-weight: 300;
+    color: rgba(0, 0, 0, 0.8);
 }
 
 .level2{
     font-size: smaller;
+    color: rgba(0, 0, 0, 0.8);
 }
 
 .bg-white{
@@ -169,4 +171,12 @@ input.danger { color: #cc2f2e; }
 
 .form-control::-ms-input-placeholder { /* Microsoft Edge */
     color: gray;
+}
+
+h1,h2,h3,h4{
+    color:#0d6dfd
+}
+
+th{
+    font-weight: 200;
 }

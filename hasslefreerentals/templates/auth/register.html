@@ -29,8 +29,9 @@ Register
                   </div>
                   <select autofocus class="form-select mx-auto w-75 mb-3" name="usertype" required>
                     <option disabled selected value="">User Type</option>
-                    <option value=1>Lessor</option>
-                    <option value=2>Lessee</option>
+                    {% for usertype in usertypes %}
+                        <option value ="{{usertype}}"> {{usertype}}</option>
+                    {% endfor %}
                   </select>
                   <div class="text-center">
                       <button class="btn btn-primary" type="submit">Register</button>

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+{% block main %}
+<div class="container">
+    <p class="text-center h3 mx-1 mx-md-4" style="color: #0D6EFD">Dashboard</p>
+    <hr>
+    <div class="card">
+        <div class="card-body">
+            <table class="table align-middle" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th style="width:40%">Equipment</th>
+                        <th style="width:50%">Details</th>
+                        <th style="width:10%">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for equipment in user_equipments %}
+                    <tr>
+                        <td>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <img src="{{ url_for('main.get_image', image_id=equipment.def_img_id) }}" width="100%" height="100%" alt="">                        </div>
+                                <div class="col-md-8 d-flex greyish align-items-center">
+                                    <p class="level1">{{ equipment.sub_category }}<br> {{ equipment.brand }}<br> {{ equipment.model }}</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <p class="level2">$ {{ equipment.hourly_rate }}/hr <br> Adv - {{ equipment.advance }} <br> {{ equipment.duration }} <br> {{ equipment.location }}</p>
+                        </td>
+                        <td>
+                            {% if g.user['id'] == equipment['owner_id'] %}
+                            <a class="btn btn-primary btn-sm w-100 mb-4" href="{{ url_for('main.update', id=equipment['id']) }}">Edit</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
