@@ -38,7 +38,7 @@ Equipments
                 <div id="flush-collapse{{loop.index}}" class="subcat accordion-collapse collapse">
                     {% for subcat in CAT[cat] %}
                     <form onclick='submit()'action="{{ url_for('main.equipments_detail') }}" method="POST">
-                        <input type="text" name="subcategory" readonly class=" accordion-body form-control-plaintext" id="cat" value="{{subcat}}">
+                        <input type="text" name="sub_category" readonly class=" accordion-body form-control-plaintext" id="cat" value="{{subcat}}">
                    </form>
                     {% endfor %}
                 </div>
@@ -53,11 +53,11 @@ Equipments
                   {% for category, subcategories in CAT.items() %}
                     {% if subcat in subcategories %}
                       <div class="col-lg-4 col-md-6">
-                        <form onclick="submit()" action="/equipmentdetail" method="post" id="form-element">
+                        <form onclick="submit()" action="/equipments_detail" method="post" id="form-element">
                           <div class="boxy">
                             <div class="title-container px-4 py-3">
-                              <input type="text" name="cat" readonly class="form-control-plaintext h6" id="cat" value="{{ category }}">
-                              <input type="text" name="sub_cat" readonly class="form-control-plaintext h5" id="sub-cat" value="{{ subcat }}">
+                              <input type="text" name="category" readonly class="form-control-plaintext h6" id="cat" value="{{ category }}">
+                              <input type="text" name="sub_category" readonly class="form-control-plaintext h5" id="sub-cat" value="{{ subcat }}">
                             </div>
                             <img src="{{ url_for('main.get_image', image_id=img_dict[subcat]) }}" width="100%" height="100%" alt="">
                           </div>

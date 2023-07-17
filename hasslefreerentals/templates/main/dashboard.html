@@ -14,7 +14,7 @@ Dashboard
                     <tr>
                         <th style="width:40%">Equipment</th>
                         <th style="width:50%">Details</th>
-                        <th style="width:10%">Action</th>
+                        <th class="text-center" style="width:10%">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -23,8 +23,9 @@ Dashboard
                         <td>
                             <div class="row">
                                 <div class="col-md-4">
-                                    <img src="{{ url_for('main.get_image', image_id=equipment.def_img_id) }}" width="100%" height="100%" alt="">                        </div>
-                                <div class="col-md-8 d-flex greyish align-items-center">
+                                    <img src="{{ url_for('main.get_image', image_id=equipment.def_img_id) }}" width="100%" height="100%" alt="">
+                                </div>
+                                <div class="col-md-8 d-flex align-items-center">
                                     <p class="level1">{{ equipment.sub_category }}<br> {{ equipment.brand }}<br> {{ equipment.model }}</p>
                                 </div>
                             </div>

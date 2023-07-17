@@ -31,14 +31,14 @@ Equipment List
                 <div class="row">
                     {% for equipment in equipments%}
                         <div class="col-md-2">
-                            <img src="/static/images/excavator.png" width="100%" height="100%" alt="">
+                            <img src="{{ url_for('main.get_image', image_id=equipment.def_img_id) }}" width="100%" height="100%" alt="">
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-6">
                             <p class="level1">{{sub_category}}, {{equipment.brand}}, {{equipment.model}}</p>
                             <p class="level2">$ {{equipment.hourly_rate}}/hr | Adv - {{equipment.advance}} | {{equipment.duration}} | {{ equipment.location}} </p>
                         </div>
-                        <div class=" col-md-2 align-items-center">
-                            <button class="btn btn-primary btn-sm mb-4">Add to Cart</button>
+                        <div class=" col-md-4 align-items-center">
+                            <a class="btn btn-primary btn-sm w-100 mb-4" href="{{ url_for('main.booking') }}">Proceed to Booking</a>
                         </div>
                     {% endfor %}
                 </div>

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}
+Booking 
+{% endblock %}
+
+{% block main %}
+<div class="container">
+  <p class="text-center h3 mx-1 mx-md-4" style="color: #0D6EFD">Booking Form</p>
+  <hr>
+  <form action="/submit_booking" method="post">
+    <div class="row justify-content-center mt-4">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="rental_dates" class="form-label greyish">Rental Dates</label>
+                <input class="form-control eqrform" id="rental_dates" name="rental_dates" placeholder="Select Rental Dates" type="date">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="pickup_location" class="form-label greyish">Pickup Location</label>
+                <input class="form-control eqrform" id="pickup_location" name="pickup_location" placeholder="Pickup Location" type="text">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="return_location" class="form-label greyish">Return Location</label>
+                <input class="form-control eqrform" id="return_location" name="return_location" placeholder="Return Location" type="text">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="additional_notes" class="form-label greyish">Additional Notes</label>
+                <textarea class="form-control eqrform" id="additional_notes" name="additional_notes" rows="3" placeholder="Enter any additional notes"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="text">
+            <button class="btn btn-primary w-100" type="submit">Submit Booking</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock %}

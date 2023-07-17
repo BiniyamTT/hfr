@@ -150,6 +150,43 @@ def login():
     return render_template('auth/login.html')
 
 
+@bp.route('/reset_password', methods=['GET', 'POST'])
+def reset_password():
+    if request.method == 'POST':
+        phoneno = request.form['phoneno']
+        otp = request.form['otp']
+        password = request.form['password']
+        confirmation = request.form['confirmation']
+        db = get_db()
+        error = None
+
+        user = db.execute(
+            'SELECT * FROM user WHERE phoneno = ?', (phoneno,)
+        ).fetchone()
+
+        if user is None:
+            error = 'Incorrect Phone number.'
+        elif verifyotp(otp) != 200:
+            error = 'OTP either invalid or expired, try again.'
+        elif not password:
+            error = 'Password is required.'
+        elif password != confirmation:
+            error = 'Passwords do not match.'
+
+        if error is None:
+            db.execute(
+                'UPDATE user SET hash = ? WHERE id = ?',
+                (generate_password_hash(password), user['id'])
+            )
+            db.commit()
+            flash('Password reset successful. Log in to continue.')
+            return redirect(url_for('auth.login'))
+
+        flash(error)
+
+    return render_template('auth/reset_password.html')
+
+
 @bp.route('/logout')
 def logout():
     session.clear()

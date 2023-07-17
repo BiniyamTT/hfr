@@ -71,11 +71,9 @@ def index():
 @bp.route("/equipments")
 @login_required
 def equipments():
-    if session.get('user_type') == 'Lessee':
-        return redirect(url_for('main.browse_equipments'))
-    else:
-        return redirect(url_for('main.dashboard'))
-
+    return redirect(url_for('main.browse_equipments'))
+    
+        
 
 @bp.route("/browse_equipments")
 @login_required
@@ -86,7 +84,7 @@ def browse_equipments():
 @bp.route("/equipments_detail", methods = ['POST'])
 @login_required
 def equipments_detail():
-    subcategory = request.form.get('subcategory')
+    subcategory = request.form.get('sub_category')
     db = get_db()
     error = None
     
@@ -107,10 +105,20 @@ def screturn():
         subcat = []
     return jsonify(subcat)
 
-
-@bp.route('/eqregister', methods=['GET', 'POST'])
+@bp.route("/eqregister")
 @login_required
 def eqregister():
+    if session.get('user_type') == 'Lessor':
+        return redirect(url_for('main.register_requipments'))
+    else:
+        error = 'Only "Lessor" user types can register equipment. Please login using a "Lessor" account'
+        flash(error)
+        return redirect(url_for('main.browse_equipments'))
+
+
+@bp.route('/register_requipments', methods=['GET', 'POST'])
+@login_required
+def register_requipments():
     if request.method == 'POST':
         db = get_db()
         owner_id = g.user['id']
@@ -203,3 +211,8 @@ def delete(id):
     db.execute('DELETE FROM equipment WHERE id = ?', (id,))
     db.commit()
     return redirect(url_for('main.dashboard'))
+
+
+@bp.route("/booking")
+def booking():
+    return render_template("main/booking.html")

@@ -180,3 +180,8 @@ h1,h2,h3,h4{
 th{
     font-weight: 200;
 }
+.tiny{
+    font-size: x-small;
+    color:blue;
+    text-decoration: underline;
+}
