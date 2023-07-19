@@ -71,8 +71,7 @@ def index():
 @bp.route("/equipments")
 @login_required
 def equipments():
-    return redirect(url_for('main.browse_equipments'))
-    
+    return redirect(url_for('main.browse_equipments'))   
         
 
 @bp.route("/browse_equipments")
@@ -80,6 +79,7 @@ def equipments():
 def browse_equipments():
     img_dict = makesubcat_defaultimgid_dict(POP_SCS)
     return render_template("main/equipments.html", CAT=CAT, popularsubcats=POP_SCS, img_dict=img_dict)
+
 
 @bp.route("/equipments_detail", methods = ['POST'])
 @login_required
@@ -89,7 +89,7 @@ def equipments_detail():
     error = None
     
     if error == None:
-        equipments = db.execute("SELECT * FROM equipment WHERE sub_category = ?", (subcategory,)).fetchall()
+        equipments = db.execute("SELECT * FROM equipment WHERE sub_category = ? AND status = ?", (subcategory, "Available")).fetchall()
         if equipments == []:
             error = "No equipments found"
             flash(error)
@@ -104,6 +104,7 @@ def screturn():
     else:
         subcat = []
     return jsonify(subcat)
+
 
 @bp.route("/eqregister")
 @login_required
@@ -150,15 +151,10 @@ def register_requipments():
 @login_required
 def update(id):
     equipment = get_equipment(id)
-    print('----------------------------------')
-    print('Inside update')
-    
+   
     if request.method == 'POST':
         category= request.form["category"]
-        print('----------------------------------')
-        print(category)
         sub_category = request.form["sub_category"]
-        print(sub_category)
         brand = request.form["brand"]
         model = request.form["model"]
         license_plate_no = request.form["license_plate_no"]
@@ -213,6 +209,15 @@ def delete(id):
     return redirect(url_for('main.dashboard'))
 
 
-@bp.route("/booking")
-def booking():
-    return render_template("main/booking.html")
+@bp.route('/<int:id>/booking', methods=['GET', 'POST'])
+def booking(id):
+    if request.method == "GET":
+        if session.get('user_type') == 'Lessor':
+            error = "Only 'Lessee' user types can book equipment. Please login using a 'Lessee' account."
+            flash(error)
+            return redirect(url_for('main.equipments'))
+        else:
+            equipment = get_equipment(id, check_owner=False)
+            return render_template("main/booking.html", equipment=equipment)
+
+        

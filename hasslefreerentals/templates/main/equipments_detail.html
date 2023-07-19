@@ -50,7 +50,7 @@ Equipment List
                             </div>
                         </div>
                         <div class=" col-md-3 align-items-center">
-                            <a class="btn btn-primary btn-sm w-100 mb-4" href="{{ url_for('main.booking') }}">Proceed to Book</a>
+                            <a class="btn btn-primary btn-sm w-100 mb-4" href="{{ url_for('main.booking', id=equipment['id']) }}">Proceed to Book</a>
                         </div>
                     {% endfor %}
                 </div>

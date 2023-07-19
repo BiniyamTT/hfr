@@ -8,31 +8,212 @@ Booking
 <div class="container">
   <p class="text-center h3 mx-1 mx-md-4" style="color: #0D6EFD">Booking Form</p>
   <hr>
+  <div class="row justify-content-center mt-4">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+              <p class="h5 mb-3 text-center " style="color: #0D6EFD">Equipment Details</p>
+              <hr>
+                <div class="col-md-6">
+                    <div class="row">
+                      <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="category" class="form-label greyish">Category</label>
+                                <select class="form-select eqrform" name="category" id="category">
+                                    <option disabled selected value="{{ equipment['category']}}">{{ equipment['category'] }}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">    
+                            <div class="mb-3">
+                                <label for="sub_category" class="form-label greyish">Equipment Type</label>
+                                <select class="form-select eqrform" name="sub_category" id="sub_category">
+                                    <option disabled selected value="{{ equipment['sub_category']}}">{{ equipment['sub_category'] }}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                        <label for="brand" class="form-label greyish">Brand</label>
+                        <input disabled class="form-control eqrform" id="brand" name="brand" type="text" value = "{{ equipment['brand']}}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                        <label for="model" class="form-label greyish">Model</label>
+                        <input disabled class="form-control eqrform" id="model" name="model" type="text"  value = "{{ equipment['model']}}">
+                        </div>
+                    </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                        <label for="license_plate_no" class="form-label greyish">License Plate No</label>
+                        <input disabled class="form-control eqrform" id="license_plate_no" name="license_plate_no" type="text" value = "{{ equipment['license_plate_no']}}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                        <label for="fuel_type" class="form-label greyish">Fuel Type</label>
+                        <select class="form-select eqrform" name="fuel_type" id="fuel_type">
+                            <option disabled selected value="{{ equipment['fuel_type'] }}">{{ equipment['fuel_type'] }}</option>
+                        </select>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                        <label for="hp" class="form-label greyish">Engine Power</label>
+                        <input disabled class="form-control eqrform" id="hp" name="hp" type="text" value = "{{ equipment['hp']}}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                        <label for="year" class="form-label greyish">Mfg. Year</label>
+                        <input disabled class="form-control eqrform" id="year" name="year" type="text" value = "{{ equipment['year']}}">
+                        </div>
+                    </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="hourly_rate" class="form-label greyish">Hourly Rate (ETB)</label>
+                                <input disabled class="form-control eqrform" id="hourly_rate" name="hourly_rate" type="text" value = "{{ equipment['hourly_rate']}}">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="advance" class="form-label greyish">Advance Amount (hrs)</label>
+                                <input disabled class="form-control eqrform" id="advance" name="advance" type="text" value = "{{ equipment['advance']}}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">    
+                            <div class="mb-3">
+                                <label for="duration" class="form-label greyish">Duration Preference</label>
+                                <select class="form-select eqrform" name="duration" id="duration">
+                                    <option disabled selected value="{{ equipment['duration'] }}">{{ equipment['duration'] }}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="location" class="form-label greyish">Location</label>
+                                <input disabled class="form-control eqrform" id="location" name="location" type="text" value = "{{ equipment['location']}}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">    
+                            <div class="mb-3">
+                                <label for="status" class="form-label greyish">Status</label>
+                                <select class="form-select eqrform" name="status" id="status">
+                                    <option disabled selected value="{{ equipment['status'] }}">{{ equipment['status'] }}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                  </div>        
+                <div class="col-md-6 d-flex ">
+                  <img src="{{ url_for('main.get_image', image_id=equipment.def_img_id) }}"  alt="">
+                </div>
+            </div>
+        </div>
+    </div>    
+    
+</div>
   <form action="/submit_booking" method="post">
     <div class="row justify-content-center mt-4">
       <div class="card">
         <div class="card-body">
           <div class="row">
+            <p class="h5 mb-3 text-center " style="color: #0D6EFD">Booking Details</p>
+            <hr>
             <div class="col-md-6">
               <div class="mb-3">
-                <label for="rental_dates" class="form-label greyish">Rental Dates</label>
-                <input class="form-control eqrform" id="rental_dates" name="rental_dates" placeholder="Select Rental Dates" type="date">
+                <label for="start_date" class="form-label greyish">Start Date</label>
+                <input class="form-control eqrform" id="start_date" name="start_date" placeholder="Select Start Date" type="date" required>
               </div>
             </div>
             <div class="col-md-6">
               <div class="mb-3">
-                <label for="pickup_location" class="form-label greyish">Pickup Location</label>
-                <input class="form-control eqrform" id="pickup_location" name="pickup_location" placeholder="Pickup Location" type="text">
+                <label for="end_date" class="form-label greyish">End Date</label>
+                <input class="form-control eqrform" id="end_date" name="end_date" placeholder="Select End Date" type="date" required>
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-md-6">
               <div class="mb-3">
-                <label for="return_location" class="form-label greyish">Return Location</label>
-                <input class="form-control eqrform" id="return_location" name="return_location" placeholder="Return Location" type="text">
+                <label for="pickup_location" class="form-label greyish">Pickup Location</label>
+                <input class="form-control eqrform" id="pickup_location" name="pickup_location" placeholder="Pickup Location" type="text" required>
               </div>
             </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="return_location" class="form-label greyish">Return Location</label>
+                <input class="form-control eqrform" id="return_location" name="return_location" placeholder="Return Location" type="text" required>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="contact_name" class="form-label greyish">Name</label>
+                <input class="form-control eqrform" id="contact_name" name="contact_name" placeholder="Enter your name" type="text" required>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="contact_email" class="form-label greyish">Email Address</label>
+                <input class="form-control eqrform" id="contact_email" name="contact_email" placeholder="Enter your email address" type="email" required>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="contact_phone" class="form-label greyish">Phone Number</label>
+                <input class="form-control eqrform" id="contact_phone" name="contact_phone" placeholder="Enter your phone number" type="tel" required>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="contact_tin" class="form-label greyish">TIN Number</label>
+                <input class="form-control eqrform" id="contact_tin" name="contact_tin" placeholder="Enter your TIN number" type="text">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label class="form-label greyish">Pickup/Delivery Preference</label>
+                <div class="form-check">
+                  <input class="form-check-input eqrform" type="radio" name="delivery_preference" id="pickup" value="pickup" required>
+                  <label class="form-check-label" for="pickup">
+                    Pickup
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input eqrform" type="radio" name="delivery_preference" id="delivery" value="delivery" required>
+                  <label class="form-check-label" for="delivery">
+                    Delivery
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="delivery_address" class="form-label greyish">Delivery Address</label>
+                <textarea class="form-control eqrform" id="delivery_address" name="delivery_address" rows="3" placeholder="Enter delivery address"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="row">
             <div class="col-md-6">
               <div class="mb-3">
                 <label for="additional_notes" class="form-label greyish">Additional Notes</label>
