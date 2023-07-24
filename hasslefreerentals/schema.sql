@@ -42,3 +42,4 @@ CREATE TABLE default_images(
     name TEXT UNIQUE NOT NULL,
     image_data BLOB NOT NULL
 );
+

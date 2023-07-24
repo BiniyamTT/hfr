@@ -70,7 +70,7 @@ def sendotp():
             "phone": data,
             "message": "Your OTP is {{otp}}"}
         r = requests.post(url = "https://hahu.io/api/send/otp", params = message)
-        return (r.json)
+        return r.json()
 
 @bp.route('/register', methods = ['GET', 'POST'])
 def register():
