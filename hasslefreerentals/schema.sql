@@ -65,6 +65,7 @@ CREATE TABLE bookings(
     FOREIGN KEY (equipment_id) REFERENCES equipment (id),
     FOREIGN KEY (lessor_id) REFERENCES equipment (owner_id),
     FOREIGN KEY (lessee_id) REFERENCES user (id)
+);
 
 
 
