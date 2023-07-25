@@ -1,5 +1,6 @@
 import functools
 import requests
+import os
 
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
@@ -13,12 +14,10 @@ USER_TYPES = ["Lessor", "Lessee"]
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
-apisecret = "1ccdc141f237b2c18dfb44dc7716095c2f1ada70"
-
 def verifyotp(otp):
     # Verify OTP using hahu.io API  
     r = requests.get(url = "https://hahu.io/api/get/otp", params = {
-        "secret": apisecret,
+        "secret": os.environ.get('HAHUAPISECRET'),
         "otp": otp
     })
     # Get status code from verification and return it
@@ -62,7 +61,7 @@ def sendotp():
     if request.method == 'POST':
         data = request.form.get('data')
         message = {
-            "secret": apisecret,
+            "secret": os.environ.get('HAHUAPISECRET'),
             "type": "sms",
             "mode": "devices",
             "device": "00000000-0000-0000-0aa2-9d90a03739af",
@@ -110,13 +109,13 @@ def register():
                     (firstname, lastname, email, phoneno, usertype, generate_password_hash(password)),
                 )
                 db.commit()
-                flash("User registered successfully. Log in to continue.")
+                flash("User registered successfully. Log in to continue.", 'success')
             except db.IntegrityError:
                 error = f"The phone number {phoneno} is already registered. Log in to continue."
             else:
                 return redirect(url_for("auth.login"))
         
-        flash(error)
+        flash(error, 'danger')
         
     return render_template('auth/register.html', usertypes = USER_TYPES)
 
@@ -145,7 +144,7 @@ def login():
             g.user_type = user['usertype']
             return redirect(url_for('index'))
         
-        flash(error)
+        flash(error, 'danger')
 
     return render_template('auth/login.html')
 
@@ -179,10 +178,10 @@ def reset_password():
                 (generate_password_hash(password), user['id'])
             )
             db.commit()
-            flash('Password reset successful. Log in to continue.')
+            flash('Password reset successful. Log in to continue.', 'success')
             return redirect(url_for('auth.login'))
 
-        flash(error)
+        flash(error, 'danger')
 
     return render_template('auth/reset_password.html')
 

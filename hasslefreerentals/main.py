@@ -92,7 +92,7 @@ def equipments_detail():
         equipments = db.execute("SELECT * FROM equipment WHERE sub_category = ? AND status = ?", (subcategory, "Available")).fetchall()
         if equipments == []:
             error = "No equipments found"
-            flash(error)
+            flash(error, 'warning')
         return render_template("main/equipments_detail.html", equipments=equipments, sub_category=subcategory, CAT=CAT )
     
     
@@ -106,20 +106,9 @@ def screturn():
     return jsonify(subcat)
 
 
-@bp.route("/eqregister")
+@bp.route('/eqregister', methods=['GET', 'POST'])
 @login_required
 def eqregister():
-    if session.get('user_type') == 'Lessor':
-        return redirect(url_for('main.register_requipments'))
-    else:
-        error = 'Only "Lessor" user types can register equipment. Please login using a "Lessor" account'
-        flash(error)
-        return redirect(url_for('main.browse_equipments'))
-
-
-@bp.route('/register_requipments', methods=['GET', 'POST'])
-@login_required
-def register_requipments():
     if request.method == 'POST':
         db = get_db()
         owner_id = g.user['id']
@@ -140,7 +129,7 @@ def register_requipments():
         def_img_id = db.execute('SELECT id FROM default_images WHERE name = ?', (sub_category,)).fetchone()[0]
         db.execute (
             "INSERT INTO equipment(owner_id, def_img_id, category, sub_category, brand, model, license_plate_no, fuel_type, hp, year, hourly_rate, advance, duration, location, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", 
-            (owner_id, def_img_id, category, sub_category, brand, model, int(license_plate_no), fuel_type, int(hp), int(year), int(hourly_rate), int(advance), duration, location, status),
+            (   owner_id, def_img_id, category, sub_category, brand, model, int(license_plate_no), fuel_type, int(hp), int(year), int(hourly_rate), int(advance), duration, location, status),
             )
         db.commit()
         return redirect (url_for('main.index'))
@@ -175,7 +164,7 @@ def update(id):
             error = 'Subcategory is required.'
         
         if error is not None:
-            flash(error)
+            flash(error, 'danger')
         else:
             db = get_db()
             db.execute(
@@ -214,7 +203,7 @@ def booking(id):
     if request.method == "GET":
         if session.get('user_type') == 'Lessor':
             error = "Only 'Lessee' user types can book equipment. Please login using a 'Lessee' account."
-            flash(error)
+            flash(error, 'danger')
             return redirect(url_for('main.equipments'))
         else:
             equipment = get_equipment(id, check_owner=False)
