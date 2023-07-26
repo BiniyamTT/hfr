@@ -264,7 +264,7 @@ def booking(id):
         lessee_alt_name = request.form["contact_name"]
         lessee_alt_email = request.form["contact_email"]
         lessee_alt_phone = request.form["contact_phone"]
-        lesee_tin = request.form["contact_tin"]
+        lessee_tin = request.form["contact_tin"]
         additional_note = request.form["additional_notes"]
         booking_status = "Pending"
         error = None
@@ -273,8 +273,8 @@ def booking(id):
             flash(error, 'danger')
         else:
             db.execute  (
-            "INSERT INTO bookings (lessor_id, lessee_id, equipment_id, booking_status, start_date, end_date, delivery_preference, delivery_address, pickup_location, return_location, lessee_alt_name, lessee_alt_email, lessee_alt_phone, lesee_tin, additional_note) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            (lessor_id, lessee_id, equipment_id, booking_status, start_date, end_date, delivery_preference, delivery_address, pickup_location, return_location, lessee_alt_name, lessee_alt_email, lessee_alt_phone, lesee_tin, additional_note),
+            "INSERT INTO bookings (lessor_id, lessee_id, equipment_id, booking_status, start_date, end_date, delivery_preference, delivery_address, pickup_location, return_location, lessee_alt_name, lessee_alt_email, lessee_alt_phone, lessee_tin, additional_note) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            (lessor_id, lessee_id, equipment_id, booking_status, start_date, end_date, delivery_preference, delivery_address, pickup_location, return_location, lessee_alt_name, lessee_alt_email, lessee_alt_phone, lessee_tin, additional_note),
             )
             db.commit()
             flash('Booking created successfully', 'success')
