@@ -132,6 +132,7 @@ def eqregister():
             (   owner_id, def_img_id, category, sub_category, brand, model, int(license_plate_no), fuel_type, int(hp), int(year), int(hourly_rate), int(advance), duration, location, status),
             )
         db.commit()
+        flash('Equipment registered successfully', 'success')
         return redirect (url_for('main.index'))
     return render_template('main/eqregister.html', CAT=CAT, STATUS=STATUS, FUEL_TYPE=FUEL_TYPE, DUR=DUR )
 
@@ -172,6 +173,7 @@ def update(id):
                 (category, sub_category, brand, model, int(license_plate_no), fuel_type, int(hp), int(year), int(hourly_rate), int(advance), duration, location, status, id),
             )
             db.commit()
+            flash('Equipment updated successfully', 'success')
             return redirect(url_for('main.dashboard'))
             
     return render_template('main/update.html', equipment=equipment,  CAT=CAT, STATUS=STATUS, FUEL_TYPE=FUEL_TYPE, DUR=DUR)
@@ -181,11 +183,41 @@ def update(id):
 @login_required
 def dashboard():
     db = get_db()
-    # Get all the user equipment
-    user_equipments = db.execute(
-        "SELECT * FROM equipment WHERE owner_id = ?", (g.user['id'],)).fetchall()
-    img_dict = makesubcat_defaultimgid_dict(ALL_SCS)
-    return render_template('main/dashboard.html', user_equipments=user_equipments, img_dict=img_dict)
+    if session.get('user_type') == 'Lessor': # Get all the user equipment
+        user_equipments = db.execute(
+            "SELECT * FROM equipment WHERE owner_id = ?", (g.user['id'],)).fetchall()
+        img_dict = makesubcat_defaultimgid_dict(ALL_SCS)
+        return render_template('main/dashboard.html', user_equipments=user_equipments, img_dict=img_dict)
+    else:
+        user_bookings_query = '''
+            SELECT
+                equipment.sub_category,
+                equipment.brand,
+                equipment.model,
+                equipment.year,
+                equipment.def_img_id,
+                equipment.advance,
+                equipment.hourly_rate,
+                user.firstname AS lessor_first_name,
+                user.lastname AS lessor_last_name,
+                user.phoneno AS lessor_phoneno,
+                user.email AS lessor_email,
+                bookings.equipment_id,
+                bookings.start_date,
+                bookings.end_date,
+                bookings.delivery_preference,
+                bookings.pickup_location,
+                bookings.return_location,
+                bookings.delivery_address,
+                bookings.additional_note,
+                bookings.booking_status
+            FROM bookings
+            JOIN equipment ON bookings.equipment_id = equipment.id
+            JOIN user ON bookings.lessor_id = user.id
+            WHERE bookings.lessee_id = ?;
+        '''
+        user_bookings = db.execute(user_bookings_query, (g.user['id'],)).fetchall()
+        return render_template('main/dashboard_lessee.html', bookings=user_bookings)
 
 
 @bp.route('/<int:id>/delete', methods=('POST',))
@@ -208,5 +240,42 @@ def booking(id):
         else:
             equipment = get_equipment(id, check_owner=False)
             return render_template("main/booking.html", equipment=equipment)
+    if request.method == "POST":
+        db = get_db()
 
+        # Assuming the user_id and equipment_id are already known
+        user_id = g.user['id']
+        equipment_id = id
+
+        # Query the user table to get the lessor_id
+        lessor = db.execute("SELECT owner_id FROM equipment WHERE id = ?", (equipment_id,)).fetchone()
+        lessor_id = lessor["owner_id"]
+
+        # Retrieve lessee_id from the form data
+        lessee_id = user_id
+
+        # Retrieve other form data as usual
+        start_date = request.form["start_date"]
+        end_date = request.form["end_date"]
+        delivery_preference = request.form["delivery_preference"]
+        delivery_address = request.form["delivery_address"]
+        pickup_location = request.form["pickup_location"]
+        return_location = request.form["return_location"]
+        lessee_alt_name = request.form["contact_name"]
+        lessee_alt_email = request.form["contact_email"]
+        lessee_alt_phone = request.form["contact_phone"]
+        lesee_tin = request.form["contact_tin"]
+        additional_note = request.form["additional_notes"]
+        booking_status = "Pending"
+        error = None
         
+        if error is not None:
+            flash(error, 'danger')
+        else:
+            db.execute  (
+            "INSERT INTO bookings (lessor_id, lessee_id, equipment_id, booking_status, start_date, end_date, delivery_preference, delivery_address, pickup_location, return_location, lessee_alt_name, lessee_alt_email, lessee_alt_phone, lesee_tin, additional_note) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            (lessor_id, lessee_id, equipment_id, booking_status, start_date, end_date, delivery_preference, delivery_address, pickup_location, return_location, lessee_alt_name, lessee_alt_email, lessee_alt_phone, lesee_tin, additional_note),
+            )
+            db.commit()
+            flash('Booking created successfully', 'success')
+            return redirect(url_for('main.dashboard'))

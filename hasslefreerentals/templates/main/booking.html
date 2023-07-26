@@ -126,7 +126,7 @@ Booking
     </div>    
     
 </div>
-  <form action="/submit_booking" method="post">
+<form action="{{ url_for('main.booking', id=equipment['id']) }}" method="POST">
     <div class="row justify-content-center mt-4">
       <div class="card">
         <div class="card-body">
@@ -193,13 +193,13 @@ Booking
               <div class="mb-3">
                 <label class="form-label greyish">Pickup/Delivery Preference</label>
                 <div class="form-check">
-                  <input class="form-check-input eqrform" type="radio" name="delivery_preference" id="pickup" value="pickup" required>
+                  <input class="form-check-input eqrform" type="radio" name="delivery_preference" id="pickup" value="Pickup" required>
                   <label class="form-check-label" for="pickup">
                     Pickup
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input eqrform" type="radio" name="delivery_preference" id="delivery" value="delivery" required>
+                  <input class="form-check-input eqrform" type="radio" name="delivery_preference" id="delivery" value="Delivery" required>
                   <label class="form-check-label" for="delivery">
                     Delivery
                   </label>

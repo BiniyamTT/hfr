@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block main %}
+<div class="container">
+    <p class="text-center h3 mx-1 mx-md-4" style="color: #0D6EFD">Dashboard</p>
+    <hr>
+    <div class="card">
+        <div class="card-body">
+            <table class="table align-middle" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th style="width:25%">Equipment Details</th>
+                        <th style="width:20%">Owner Details</th>
+                        <th style="width:40%">Booking Details</th>
+                        <th style="width:10%" class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for booking in bookings %}
+                    <tr>
+                        <td>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <img src="{{ url_for('main.get_image', image_id=booking.def_img_id) }}" width="100%" height="100%" alt="">
+                                </div>
+                                <div class="col-md-7 d-flex align-items-center">
+                                    <p class="level1"><span style="color:#0D6EFD">{{ booking.sub_category }}</span><br>{{ booking.brand }} | {{ booking.model }}<br>{{ booking.year }}</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <p>
+                                {{booking.lessor_first_name}} {{booking.lessor_last_name}}
+                                <br>{{booking.lessor_email}}
+                                <br>{{booking.lessor_phoneno}} 
+                            </p>
+                        </td>
+                        <td>
+                            <p>
+                                <span style="color:#0D6EFD"> Start:</span> {{ booking.start_date }}&emsp;<span style="color:#0D6EFD"> End:</span> {{booking.end_date}}
+                                <br><span style="color:#0D6EFD"> Preference:</span> {{booking.delivery_preference}} 
+                                <br><span style="color:#0D6EFD"> Pickup from:</span> {{booking.pickup_location}} 
+                                <br><span style="color:#0D6EFD"> Deliver to:</span> {{booking.delivery_address}} 
+                                <br><span style="color:#0D6EFD"> Return to:</span> {{booking.return_location}}
+                                <br><span style="color:#0D6EFD"> Rate:</span> {{booking.hourly_rate}}/hr&emsp;<span style="color:#0D6EFD"> Advance:</span> {{booking.advance}}hrs
+                                <br><span style="color:#0D6EFD"> Return to:</span> {{booking.return_location}}<br>
+                                {% if booking.booking_status == 'Pending'%}
+                                    <img src="https://img.shields.io/badge/status-pending-e6a23c" alt="Pending">
+                                {% elif booking.booking_status == 'Approved'%}
+                                    <img src ="https://img.shields.io/badge/status-approved-2ea44f" alt="Approved">
+                                {% else %}
+                                <img src ="https://img.shields.io/badge/status-denied-ee2e24" alt="Approved">
+                                {% endif %}
+                            </p>
+                        </td>
+                        <td class="text-center">
+                            
+                            <a class="btn btn-primary btn-sm w-100 mb-4" href="#">Edit</a>
+                           
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
