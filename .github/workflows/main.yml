@@ -21,6 +21,5 @@ jobs:
       run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.WORK_DIR }} && git checkout ${{ secrets.MAIN_BRANCH }} && git pull && exit"
     - name: remove pycache and restart supervisor
       run: |
-        sudo rm -r /home/biniyamtt/site/hfr/__pycache__
-        sudo rm -r /home/biniyamtt/site/hfr/hasslefreerentals/__pycache__
+        find . | grep -E "(/__pycache__$|\.pyc$|\.pyo$)" | xargs rm -rf
         sudo supervisorctl reload 
