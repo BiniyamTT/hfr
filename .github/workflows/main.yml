@@ -19,3 +19,8 @@ jobs:
         ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
     - name: connect and pull
       run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.WORK_DIR }} && git checkout ${{ secrets.MAIN_BRANCH }} && git pull && exit"
+    - name: remove pycache and restart supervisor
+      run: |
+        rm -r /home/biniyamtt/site/hfr/__pycache__
+        rm -r /home/biniyamtt/site/hfr/hasslefreerentals/__pycache__
+        sudo supervisorctl reload 
