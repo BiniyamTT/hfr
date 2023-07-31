@@ -5,7 +5,18 @@ Dashboard
 {% endblock %}
 {% block main %}
 <div class="container">
-    <p class="text-center h3 mx-1 mx-md-4" style="color: #0D6EFD">Dashboard</p>
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="h6" style="color: #0D6EFD" id="navbarNav">
+          <ul class="nav">
+            <li class="nav-item">
+              <a class="nav-link active" href="{{ url_for('main.dashboard')}}">My Equipments <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('main.lessor_bookings')}}">My Bookings</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
     <hr>
     <div class="card">
         <div class="card-body">

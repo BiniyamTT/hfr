@@ -27,11 +27,19 @@ nav{
 
 .nav li a{
     padding-left: 0;
+    padding-right: 1rem;
+}
+
+.nav-link{
+    padding: 0;
+    padding-right: 1rem;
 }
 
 .nav li .active{
     border-bottom: 2px solid #0d6dfd;
-    padding: 0;
+    padding: 0%;
+    margin-right: 1rem;
+    
     text-decoration: none;
 }
 
@@ -182,7 +190,7 @@ th{
 }
 
 .tiny{
-    font-size: x-small;
+    font-size: smaller;
     color:blue;
     text-decoration: underline;
 }

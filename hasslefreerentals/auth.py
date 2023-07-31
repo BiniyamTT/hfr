@@ -58,6 +58,7 @@ def clear_response_cache(response):
 
 @bp.route('/sendotp', methods=['POST'])
 def sendotp():
+    print("IN SEND OTP")
     if request.method == 'POST':
         data = request.form.get('data')
         message = {
@@ -65,9 +66,10 @@ def sendotp():
             "type": "sms",
             "mode": "devices",
             "device": "00000000-0000-0000-0aa2-9d90a03739af",
-            "sim": 2,
+            "sim": 1,
             "phone": data,
             "message": "Your OTP is {{otp}}"}
+        print(message)
         r = requests.post(url = "https://hahu.io/api/send/otp", params = message)
         return r.json()
 

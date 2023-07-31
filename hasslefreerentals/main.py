@@ -220,6 +220,43 @@ def dashboard():
         return render_template('main/dashboard_lessee.html', bookings=user_bookings)
 
 
+@bp.route('/lessor_bookings', methods=('GET','POST',))
+@login_required
+def lessor_bookings():
+    db =get_db()
+    user_bookings_query = '''
+            SELECT
+                equipment.sub_category,
+                equipment.brand,
+                equipment.model,
+                equipment.year,
+                equipment.def_img_id,
+                equipment.advance,
+                equipment.hourly_rate,
+                user.firstname AS lessee_first_name,
+                user.lastname AS lessee_last_name,
+                user.phoneno AS lessee_phoneno,
+                user.email AS lessee_email,
+                bookings.equipment_id,
+                bookings.start_date,
+                bookings.end_date,
+                bookings.delivery_preference,
+                bookings.pickup_location,
+                bookings.return_location,
+                bookings.delivery_address,
+                bookings.additional_note,
+                bookings.booking_status
+            FROM bookings
+            JOIN equipment ON bookings.equipment_id = equipment.id
+            JOIN user ON bookings.lessee_id = user.id
+            WHERE bookings.lessor_id = ?;
+        '''
+    user_bookings = db.execute(user_bookings_query, (g.user['id'],)).fetchall()
+    return render_template('main/dashboard_lessor.html', bookings=user_bookings)
+    
+    
+
+
 @bp.route('/<int:id>/delete', methods=('POST',))
 @login_required
 def delete(id):

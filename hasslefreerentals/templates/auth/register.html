@@ -20,7 +20,7 @@ Register
                       <input autocomplete="on" autofocus class="form-control mx-auto mb-2 w-75" id="lastname" name="lastname" placeholder="Last Name" type="text" required>
                       <input autocomplete="on" autofocus class="form-control mx-auto mb-2 w-75" id="email" name="email" placeholder="E-mail" type="email">
                       <input autocomplete="on" autofocus class="form-control mx-auto w-75" id="phoneno" name="phoneno" placeholder="Phone No. [+251900000000]" type="tel" required>
-                      <a class='smalltext' onclick="sendotp()" href="#">Send Verification Code</a>
+                      <a class='otpsend smalltext' onclick="sendotp()" href="#">Send Verification Code</a>
                       <input autocomplete="off" autofocus class="form-control mx-auto my-2 w-75" id="otp" name="otp" placeholder="Verification Code" type="text">
                   </div>
                   <div class="mb-3">
@@ -35,6 +35,9 @@ Register
                   </select>
                   <div class="text-center">
                       <button class="btn btn-primary" type="submit">Register</button>
+                  </div>
+                  <div class="text-center m-2">
+                    <a class="tiny my-1" href="{{ url_for('auth.login') }}">Already have an account, Login here.</a>
                   </div>
                 </form>
               </div>
@@ -51,4 +54,6 @@ Register
     </div>
   </div>
 </section>
+{% endblock %}
+{%block script%}
 {% endblock %}
