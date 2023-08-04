@@ -8,12 +8,12 @@ Register Equipment
   <p class="text-center h3 mx-1 mx-md-4" style="color: #0D6EFD">Register your Equipment</p>
   <hr>
   <form action="/eqregister" method="post">
-    <div class="row justify-content-center mt-4">
+    <div class="row d-flex justify-content-center mt-4">
         
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12 col-lg-6 col-xl-6 order-2 order-lg-1">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
@@ -132,7 +132,7 @@ Register Equipment
                         <button class="btn btn-primary w-100" type="submit">Register</button>
                         </div>
                     </div>        
-                    <div class="col-md-6 d-flex align-items-center">
+                    <div class="ccol-md-6 col-lg-6 col-xl-6 d-flex align-items-center order-1 order-lg-2">
                         <img class="img-fluid h-auto" src="{{ url_for('static', filename='images/hero_img.png')}}" alt="">
                     </div>
                 </div>
