@@ -28,7 +28,7 @@ CAT =   {
     "Trucks and Trailers":["Dump Truck", "Low-bed Truck"]
     }
 
-POP_SCS = ['Chain Excavator', 'Dump Truck', 'Low-bed Truck', 'Back Hoe', 'Concrete Pump Truck', 'Concrete Mixer Truck']
+POP_SCS = ['Chain Excavator', 'Dump Truck', 'Loader', 'Low-bed Truck', 'Back Hoe', 'Concrete Pump Truck', 'Concrete Mixer Truck']
 ALL_SCS = ['Pneumatic Roller','Chain Excavator','Concrete Pump Truck','Asphalt Scrapper','Loader','Single Drum Smooth Wheeled Roller','Grader','Asphalt Paver','Low-bed Truck','Concrete Mixer Truck','Bull-Dozer','Dump Truck','Back Hoe']
 
 
@@ -237,6 +237,7 @@ def lessor_bookings():
                 user.lastname AS lessee_last_name,
                 user.phoneno AS lessee_phoneno,
                 user.email AS lessee_email,
+                bookings.id,
                 bookings.equipment_id,
                 bookings.start_date,
                 bookings.end_date,
@@ -316,3 +317,27 @@ def booking(id):
             db.commit()
             flash('Booking created successfully', 'success')
             return redirect(url_for('main.dashboard'))
+        
+
+@bp.route('/<int:id>/accept_booking', methods=['GET'])
+@login_required
+def accept_booking(id):
+    db = get_db()
+    db.execute(
+        "UPDATE bookings SET booking_status = ? WHERE id = ?",("Approved", id),
+    )
+    db.commit()
+    flash('Booking approved successfully', 'success')
+    return redirect(url_for('main.lessor_bookings'))
+
+
+@bp.route('/<int:id>/reject_booking', methods=['GET'])
+@login_required
+def reject_booking(id):
+    db = get_db()
+    db.execute(
+        "UPDATE bookings SET booking_status = ? WHERE id = ?",("Rejected", id),
+    )
+    db.commit()
+    flash('Booking rejected successfully', 'success')
+    return redirect(url_for('main.lessor_bookings'))

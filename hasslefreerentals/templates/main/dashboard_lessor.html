@@ -63,13 +63,14 @@ Dashboard
                                 {% elif booking.booking_status == 'Approved'%}
                                     <img src ="https://img.shields.io/badge/status-approved-2ea44f" alt="Approved">
                                 {% else %}
-                                <img src ="https://img.shields.io/badge/status-denied-ee2e24" alt="Approved">
+                                <img src ="https://img.shields.io/badge/status-denied-ee2e24" alt="Rejected">
                                 {% endif %}
                             </p>
                         </td>
                         <td class="text-center">
                             
-                            <a class="btn btn-primary btn-sm w-100 mb-4" href="#">Edit</a>
+                            <a class="btn btn-primary btn-sm w-100 mb-4" href="{{ url_for('main.accept_booking', id=booking.id) }}">Accept Booking</a>
+                            <a class="btn btn-danger btn-sm w-100 mb-4" href="{{ url_for('main.reject_booking', id=booking.id) }}">Reject Booking</a>
                            
                         </td>
                     </tr>

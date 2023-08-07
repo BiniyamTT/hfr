@@ -8,7 +8,7 @@ Home
   <!--Hero Section-->
   <section class="text-center text-md-start">
     <div class="d-sm-flex align-items-center justify-content-between">
-        <div>
+        <div class="col-md-7 col-lg-6 col-xl-6 order-2 order-lg-1">
             <h1>Rent the <span class="text-warning">Best</span>, Build the <span class="text-warning">Best</span>.</h1>
             <p class="lead my-4">
                 Find the right equipment for your job, in no time right from your desk.
@@ -17,7 +17,9 @@ Home
               <button type="submit" class="btn btn-primary w-25">Rent Now</button>
             </form>
         </div>
-        <img class="img-fluid w-75 d-none d-md-block" src="{{ url_for('static', filename='images/hero_img.png')}}" alt="">
+        <div class="col-md-5 col-lg-6 col-xl-6 order-2 order-lg-1">
+            <img class="img-fluid w-75 d-none d-md-block" src="{{ url_for('static', filename='images/hero_img.png')}}" alt="">
+        </div>
     </div>
   </section>
 
@@ -26,7 +28,7 @@ Home
     <div class="mt-5 mb-3">
       <h2 class="bolder">Quality equipments, ready to go</h2>
     </div>
-    <div class="showcase-link p-0">
+    <div class="showcase-link p-0 ">
       <ul class="nav">
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">Popular Equipments</a>
@@ -34,18 +36,20 @@ Home
       </ul>
     </div>
     <br>
-    <div class="row g-4 pt-3">
+    <div class="row g-4 pt-3 d-flex justify-content-center">
       {% for subcat in popularsubcats %}
         {% for category, subcategories in CAT.items() %}
           {% if subcat in subcategories %}
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-3 col-md-4 col-sm-6 col-8 ">
               <form onclick="submit()" action="/equipments_detail" method="POST" id="form-element">
                 <div class="boxy">
                   <div class="title-container px-4 py-3">
                     <input type="text" name="category" readonly class="form-control-plaintext h6" id="cat" value="{{ category }}">
                     <input type="text" name="sub_category" readonly class="form-control-plaintext h5" id="sub-cat" value="{{ subcat }}">
                   </div>
-                  <img src="{{ url_for('main.get_image', image_id=img_dict[subcat]) }}" width="100%" height="100%" alt="">
+                  <div class=" d-flex justify-content-center">
+                    <img src="{{ url_for('main.get_image', image_id=img_dict[subcat]) }}"  alt="">
+                  </div>
                 </div>
               </form>
             </div>
@@ -63,7 +67,7 @@ Home
     <form onclick="submit()" action="" method="post" id="form-element">
       <div class="row d-flex justify-content-between">
         {% for cat in CAT %}
-          <div class="col-md-2 boxy p-3 m-3">{{cat}}</div>
+          <div class="col-md-2 col-6 boxy p-3 m-3">{{cat}}</div>
         {% endfor %}
       </div>
   </form>
