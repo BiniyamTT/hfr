@@ -106,6 +106,9 @@ def screturn():
     return jsonify(subcat)
 
 
+
+
+
 @bp.route('/eqregister', methods=['GET', 'POST'])
 @login_required
 def eqregister():
@@ -134,7 +137,13 @@ def eqregister():
         db.commit()
         flash('Equipment registered successfully', 'success')
         return redirect (url_for('main.index'))
-    return render_template('main/eqregister.html', CAT=CAT, STATUS=STATUS, FUEL_TYPE=FUEL_TYPE, DUR=DUR )
+    else:
+        if session.get('user_type') == 'Lessee':
+            error = "Only 'Lessor' user types can register equipment. Please login using a 'Lessor' account."
+            flash(error, 'danger')
+            return redirect(url_for('main.browse_equipments'))
+        else:
+            return render_template('main/eqregister.html', CAT=CAT, STATUS=STATUS, FUEL_TYPE=FUEL_TYPE, DUR=DUR )
 
 
 @bp.route('/<int:id>/update', methods=['GET', 'POST'])
